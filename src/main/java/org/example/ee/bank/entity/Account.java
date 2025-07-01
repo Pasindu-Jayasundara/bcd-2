@@ -3,11 +3,15 @@ package org.example.ee.bank.entity;
 import jakarta.persistence.*;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name="Account.findByAccountNo", query = "select a from Account a where a.accountNo=:accountNo")
+})
 public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(unique = true, nullable = false)
     private String accountNo;
     private Double balance;
     @ManyToOne(cascade = CascadeType.ALL)

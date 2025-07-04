@@ -13,6 +13,8 @@
 <body>
 
 <h1>This is Admin Home</h1>
+<a href="${pageContext.request.contextPath}/logout">Logout</a>
+<a href="logout">Logout</a>
 
 </body>
 </html>

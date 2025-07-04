@@ -2,10 +2,12 @@ package org.example.web.interceptor.ejb;
 
 import jakarta.ejb.Stateless;
 import jakarta.interceptor.Interceptors;
+import org.example.web.interceptor.annotation.Loggin;
 import org.example.web.interceptor.interceptor.TestInterceptor;
 
 @Stateless
-@Interceptors(TestInterceptor.class)
+//@Interceptors(TestInterceptor.class)
+@Loggin
 public class UserSessionBean {
 
     public void doAction(){

@@ -54,6 +54,20 @@
             <artifactId>jersey-mvc-jsp</artifactId>
             <version>3.1.6</version>
         </dependency>
+
+<!--    file uploading    -->
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-multipart</artifactId>
+            <version>3.1.7</version>
+        </dependency>
+
+<!--    file extention ganna    -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.16.1</version>
+        </dependency>
     </dependencies>
 
     <build>

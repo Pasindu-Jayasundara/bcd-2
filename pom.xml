@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example.ee</groupId>
-    <artifactId>J2EE-Security</artifactId>
+    <artifactId>J2EE-Security-Static-Credentials</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
     <name>j2ee-security</name>

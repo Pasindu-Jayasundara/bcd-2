@@ -22,6 +22,16 @@ public class User implements Serializable {
     @Enumerated(EnumType.STRING)
     private UserType userType = UserType.USER;
 
+    public User() {
+    }
+
+    public User(String name, String email, String contact, String password) {
+        this.name = name;
+        this.email = email;
+        this.contact = contact;
+        this.password = password;
+    }
+
     public Long getId() {
         return id;
     }

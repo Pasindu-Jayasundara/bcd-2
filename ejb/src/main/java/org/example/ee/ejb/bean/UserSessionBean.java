@@ -4,7 +4,7 @@ import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.example.ee.core.model.User;
-import org.example.ee.ejb.remote.UserSession;
+import org.example.ee.core.service.UserSession;
 
 @Stateless
 public class UserSessionBean implements UserSession {

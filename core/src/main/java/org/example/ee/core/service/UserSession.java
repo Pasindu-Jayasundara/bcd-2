@@ -1,4 +1,4 @@
-package org.example.ee.ejb.remote;
+package org.example.ee.core.service;
 
 import jakarta.ejb.Remote;
 import org.example.ee.core.model.User;

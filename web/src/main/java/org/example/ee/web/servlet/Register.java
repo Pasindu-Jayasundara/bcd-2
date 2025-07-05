@@ -6,7 +6,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.example.ee.ejb.remote.UserSession;
+import org.example.ee.core.model.User;
+import org.example.ee.core.service.UserSession;
 
 import java.io.IOException;
 
@@ -19,6 +20,14 @@ public class Register extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        String name = req.getParameter("name");
+        String email = req.getParameter("email");
+        String contact = req.getParameter("contact");
+        String password = req.getParameter("password");
+
+        User user = new User(name,email,contact,password);
+
+        userSession.addUser(user);
 
     }
 }

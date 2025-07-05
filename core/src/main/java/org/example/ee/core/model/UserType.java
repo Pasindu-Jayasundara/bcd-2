@@ -1,4 +1,4 @@
-package org.example.ee.ejb.model;
+package org.example.ee.core.model;
 
 public enum UserType {
     SUPER_ADMIN,ADMIN,USER

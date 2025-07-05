@@ -13,15 +13,16 @@
 <body>
 <h1>Login</h1>
 
-<form method="post" action="j_security_check">
+<%--<form method="post" action="j_security_check">--%>
+<form method="post" action="login">
     <table>
         <tr>
             <th>Username:</th>
-            <td><input type="text" name="j_username"/></td>
+            <td><input type="text" name="username"/></td>
         </tr>
         <tr>
             <th>Password:</th>
-            <td><input type="password" name="j_password"/></td>
+            <td><input type="password" name="password"/></td>
         </tr>
         <tr>
             <td><input type="button" value="Login"/></td>

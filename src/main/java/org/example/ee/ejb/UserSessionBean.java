@@ -18,12 +18,12 @@ public class UserSessionBean {
         System.out.println("User session bean method 2");
     }
 
-    @RolesAllowed("admin")
+    @RolesAllowed("ADMIN")
     public void method3(){
         System.out.println("User session bean method 3");
     }
 
-    @RolesAllowed({"admin","user"})
+    @RolesAllowed({"ADMIN","USER"})
     public void method4(){
         System.out.println("User session bean method 4");
     }

@@ -1,7 +1,10 @@
 package org.example.ee.servlet;
 
+import jakarta.annotation.security.DeclareRoles;
 import jakarta.ejb.EJB;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.HttpConstraint;
+import jakarta.servlet.annotation.ServletSecurity;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,6 +13,8 @@ import org.example.ee.ejb.UserSessionBean;
 
 import java.io.IOException;
 
+@DeclareRoles({"USER"})
+@ServletSecurity(@HttpConstraint(rolesAllowed = "USER"))
 @WebServlet(urlPatterns = {"/user"})
 public class User extends HttpServlet {
 

@@ -6,6 +6,9 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "users")
+@NamedQueries({
+        @NamedQuery(name = "User.findUserByEmail",query = "select u from User u where u.email =:email")
+})
 public class User implements Serializable {
 
     @Id

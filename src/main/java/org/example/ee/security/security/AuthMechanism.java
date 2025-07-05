@@ -1,5 +1,7 @@
 package org.example.ee.security.security;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.security.enterprise.AuthenticationException;
@@ -12,7 +14,11 @@ import jakarta.security.enterprise.identitystore.CredentialValidationResult;
 import jakarta.security.enterprise.identitystore.IdentityStore;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.ws.rs.core.HttpHeaders;
+import org.example.ee.security.util.JWTUtil;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @AutoApplySession
@@ -44,6 +50,26 @@ public class AuthMechanism implements HttpAuthenticationMechanism {
 
         if(isWhitelisted(path)){ // no authentication needed
             return context.doNothing();
+        }
+
+        String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+        if(authHeader != null && authHeader.startsWith("Bearer ")){
+
+            try{
+
+                String token = authHeader.substring(7);
+                Claims claims = JWTUtil.parseToken(token).getPayload();
+
+                String username = claims.getSubject();
+                List roles = claims.get("roles", List.class);
+
+                CredentialValidationResult result = new CredentialValidationResult(username, new HashSet(roles));
+                return context.notifyContainerAboutLogin(result);
+
+            }catch (JwtException e){
+                return context.responseUnauthorized(); // invalid token
+            }
+
         }
 
         // check credentials in db

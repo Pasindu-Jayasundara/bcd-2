@@ -32,7 +32,7 @@
             <td><input type="password" name="password"/></td>
         </tr>
         <tr>
-            <td><input type="button" value="Register"/></td>
+            <td><input type="submit" value="Register"/></td>
         </tr>
     </table>
 </form>

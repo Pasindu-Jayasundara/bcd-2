@@ -17,15 +17,14 @@ public class Product implements Serializable {
     private Long id;
     private String name;
     private String description;
-    private String price;
-    private String quantity;
+    private double price;
+    private double quantity;
     private String category;
 
     public Product() {
     }
 
-    public Product(Long id, String name, String description, String price, String quantity, String category) {
-        this.id = id;
+    public Product(String name, String description, double price, double quantity, String category) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -57,19 +56,19 @@ public class Product implements Serializable {
         this.description = description;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public String getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 

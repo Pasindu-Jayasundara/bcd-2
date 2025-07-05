@@ -10,6 +10,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.example.ee.core.util.Encryption;
 
 import java.io.IOException;
 
@@ -24,9 +25,10 @@ public class Login extends HttpServlet {
 
         String email = req.getParameter("email");
         String password = req.getParameter("password");
+        String encrypt = Encryption.encrypt(password);
 
         AuthenticationParameters credential = AuthenticationParameters.withParams()
-                .credential(new UsernamePasswordCredential(email, password));
+                .credential(new UsernamePasswordCredential(email, encrypt));
 
         AuthenticationStatus status = securityContext.authenticate(req, resp, credential);
         if(status == AuthenticationStatus.SUCCESS){

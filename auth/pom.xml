@@ -9,8 +9,8 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>ejb</artifactId>
-    <name>j2ee-example-ejb</name>
+    <artifactId>auth</artifactId>
+    <name>j2ee-example-auth-ejb</name>
     <packaging>ejb</packaging>
 
     <properties>

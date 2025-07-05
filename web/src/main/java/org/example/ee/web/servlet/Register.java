@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.ee.core.model.User;
-import org.example.ee.core.service.UserSession;
+import org.example.ee.core.service.UserService;
 
 import java.io.IOException;
 
@@ -15,7 +15,7 @@ import java.io.IOException;
 public class Register extends HttpServlet {
 
     @EJB
-    private UserSession userSession;
+    private UserService userService;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -27,7 +27,7 @@ public class Register extends HttpServlet {
 
         User user = new User(name,email,contact,password);
 
-        userSession.addUser(user);
+        userService.addUser(user);
 
     }
 }

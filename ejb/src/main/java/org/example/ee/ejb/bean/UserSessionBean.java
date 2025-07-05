@@ -4,10 +4,10 @@ import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.example.ee.core.model.User;
-import org.example.ee.core.service.UserSession;
+import org.example.ee.core.service.UserService;
 
 @Stateless
-public class UserSessionBean implements UserSession {
+public class UserSessionBean implements UserService {
 
     @PersistenceContext
     private EntityManager em;
@@ -37,5 +37,16 @@ public class UserSessionBean implements UserSession {
     @Override
     public void removeUser(User user) {
         em.remove(user);
+    }
+
+    @Override
+    public boolean validate(String email, String password) {
+
+        User user = em.createNamedQuery("User.findByEmailAndPassword", User.class)
+                .setParameter("email", email)
+                .setParameter("password", password)
+                .getSingleResult();
+
+        return user != null;
     }
 }

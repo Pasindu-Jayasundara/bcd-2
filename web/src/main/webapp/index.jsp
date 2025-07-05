@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Asus
-  Date: 7/5/2025
-  Time: 4:45 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -13,7 +7,18 @@
 <body>
 
 <h1>web index</h1>
-<a href="${pageContext.request.contextPath}/register.jsp">Register</a>
-<a href="${pageContext.request.contextPath}/login.jsp">Login</a>
+
+<c:if test="${empty pageContext.request.userPrincipal}">
+
+    <a href="${pageContext.request.contextPath}/register.jsp">Register</a>
+    <a href="${pageContext.request.contextPath}/login.jsp">Login</a>
+
+</c:if>
+<c:if test="${not empty pageContext.request.userPrincipal}">
+
+    <a href="${pageContext.request.contextPath}/logout">Login</a>
+</c:if>
+
+
 </body>
 </html>

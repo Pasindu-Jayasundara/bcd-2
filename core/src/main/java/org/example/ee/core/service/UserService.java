@@ -4,11 +4,12 @@ import jakarta.ejb.Remote;
 import org.example.ee.core.model.User;
 
 @Remote
-public interface UserSession {
+public interface UserService {
 
     User getUserById(Long id);
     User getUserByEmail(String email);
     void addUser(User user);
     void updateUser(User user);
     void removeUser(User user);
+    boolean validate(String email, String password);
 }

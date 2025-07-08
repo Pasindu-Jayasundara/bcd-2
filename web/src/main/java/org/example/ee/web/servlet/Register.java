@@ -6,11 +6,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.example.ee.core.mail.VerificationMail;
 import org.example.ee.core.model.User;
+import org.example.ee.core.provider.MailServiceProvider;
 import org.example.ee.core.service.UserService;
 import org.example.ee.core.util.Encryption;
 
 import java.io.IOException;
+import java.util.UUID;
 
 @WebServlet("/register")
 public class Register extends HttpServlet {
@@ -28,8 +31,13 @@ public class Register extends HttpServlet {
         String encrypt = Encryption.encrypt(password);
 
         User user = new User(name,email,contact,encrypt);
-
         userService.addUser(user);
+
+        String verificationCode = UUID.randomUUID().toString();
+        VerificationMail mail = new VerificationMail(email,verificationCode);
+        MailServiceProvider.getInstance().sendEmail(mail);
+
+        resp.sendRedirect(req.getContextPath()+"/login.jsp");
 
     }
 }

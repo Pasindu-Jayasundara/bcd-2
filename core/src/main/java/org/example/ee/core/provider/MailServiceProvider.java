@@ -3,6 +3,7 @@ package org.example.ee.core.provider;
 import jakarta.mail.Authenticator;
 import jakarta.mail.PasswordAuthentication;
 import org.example.ee.core.mail.Mailable;
+import org.example.ee.core.util.Env;
 
 import java.util.Properties;
 import java.util.concurrent.BlockingQueue;
@@ -20,10 +21,13 @@ public class MailServiceProvider {
 
     private MailServiceProvider() {
 
-        properties.setProperty("mail.smtp.host","sandbox.smtp.mailtrap.io");
-        properties.setProperty("mail.smtp.port","2525");
+//        properties.setProperty("mail.smtp.host","sandbox.smtp.mailtrap.io");
+        properties.setProperty("mail.smtp.host", Env.getProperty("mailtrap.host"));
+//        properties.setProperty("mail.smtp.port","2525");
+        properties.setProperty("mail.smtp.port",Env.getProperty("mailtrap.port"));
         properties.setProperty("mail.smtp.auth","true");
-        properties.setProperty("mail.smtp.starttls.enable","false");
+        properties.setProperty("mail.smtp.starttls.enable","true");
+        properties.setProperty("mail.smtp.ssl.trust",Env.getProperty("mailtrap.host"));
     }
 
     public static MailServiceProvider getInstance(){
@@ -37,7 +41,7 @@ public class MailServiceProvider {
         authenticator = new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("7be90d94fc90b5","bc9b91479a4b28");
+                return new PasswordAuthentication(Env.getProperty("mailtrap.username"),Env.getProperty("mailtrap.password"));
             }
         };
 

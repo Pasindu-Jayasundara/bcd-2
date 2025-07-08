@@ -7,7 +7,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.ee.core.mail.VerificationMail;
+import org.example.ee.core.model.Status;
 import org.example.ee.core.model.User;
+import org.example.ee.core.model.UserType;
 import org.example.ee.core.provider.MailServiceProvider;
 import org.example.ee.core.service.UserService;
 import org.example.ee.core.util.Encryption;
@@ -30,10 +32,11 @@ public class Register extends HttpServlet {
         String password = req.getParameter("password");
         String encrypt = Encryption.encrypt(password);
 
-        User user = new User(name,email,contact,encrypt);
+        String verificationCode = UUID.randomUUID().toString();
+
+        User user = new User(name,contact,email,encrypt, UserType.USER,verificationCode, Status.INACTIVE);
         userService.addUser(user);
 
-        String verificationCode = UUID.randomUUID().toString();
         VerificationMail mail = new VerificationMail(email,verificationCode);
         MailServiceProvider.getInstance().sendEmail(mail);
 

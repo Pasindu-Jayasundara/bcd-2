@@ -1,12 +1,17 @@
 package org.example.ee.ejb.bean;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import org.example.ee.core.exception.InvalidParameterException;
 import org.example.ee.core.model.Product;
 import org.example.ee.core.service.ProductService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Stateless
 public class ProductSessionBean implements ProductService {
@@ -15,16 +20,24 @@ public class ProductSessionBean implements ProductService {
     private EntityManager em;
 
     @Override
-    public Product getProductById(Long id) {
-        return em.find(Product.class,id);
+    public Optional<Product> getProductById(Long id) {
+
+//        return em.find(Product.class,id);
+        return Optional.ofNullable(em.find(Product.class,id));
     }
 
     @Override
-    public Product getProductByName(String name) {
+    public Optional<Product> getProductByName(String name) {
 
-        return em.createNamedQuery("Product.findByName",Product.class)
-                .setParameter("name",name)
-                .getSingleResult();
+        try {
+
+            TypedQuery<Product> query = em.createNamedQuery("Product.findByName", Product.class)
+                      .setParameter("name", name);
+            return Optional.ofNullable(query.getSingleResult());
+
+        }catch (NoResultException e){
+            return Optional.empty();
+        }
     }
 
     @Override
@@ -51,8 +64,13 @@ public class ProductSessionBean implements ProductService {
         em.merge(product);
     }
 
+    @RolesAllowed({"ADMIN","SUPER_ADMIN"})
     @Override
     public void deleteProduct(Long id) {
+
+        if(id == null || id < 0){
+            throw new InvalidParameterException("Product id id null or negative");
+        }
         em.remove(getProductById(id));
     }
 }

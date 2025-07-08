@@ -23,15 +23,21 @@ public class User implements Serializable {
     private String password;
     @Enumerated(EnumType.STRING)
     private UserType userType = UserType.USER;
+    private String verificationCode;
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.INACTIVE;
 
     public User() {
     }
 
-    public User(String name, String email, String contact, String password) {
+    public User(String name, String contact, String email, String password, UserType userType, String verificationCode, Status status) {
         this.name = name;
-        this.email = email;
         this.contact = contact;
+        this.email = email;
         this.password = password;
+        this.userType = userType;
+        this.verificationCode = verificationCode;
+        this.status = status;
     }
 
     public Long getId() {
@@ -80,5 +86,21 @@ public class User implements Serializable {
 
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

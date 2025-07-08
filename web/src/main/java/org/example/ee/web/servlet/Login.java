@@ -10,6 +10,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.eclipse.tags.shaded.org.apache.bcel.verifier.exc.LoadingException;
+import org.example.ee.core.exception.LoginFailedException;
 import org.example.ee.core.util.Encryption;
 
 import java.io.IOException;
@@ -34,7 +36,8 @@ public class Login extends HttpServlet {
         if(status == AuthenticationStatus.SUCCESS){
             resp.sendRedirect(req.getContextPath()+"/index.jsp");
         }else{
-            resp.sendRedirect(req.getContextPath()+"/login.jsp");
+            //resp.sendRedirect(req.getContextPath()+"/login.jsp");
+            throw new LoginFailedException("Invalid Username or Password");
         }
     }
 }
